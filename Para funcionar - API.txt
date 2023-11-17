@@ -1,0 +1,2 @@
+Para aplicativo funcionar, por favor rode a API que se encontra no link abaixo
+https://replit.com/@ruancalves/Consulta-Tempo
