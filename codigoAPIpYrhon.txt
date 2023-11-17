@@ -1,0 +1,26 @@
+from flask import Flask
+import requests
+
+url_base = "https://api.hgbrasil.com/weather"
+
+app = Flask(__name__)
+
+string = '{"by":"city_name","valid_key":true,"results":{"temp":00,"date":"00/00/0000","time":"00:00","condition_code":"28","description":"--","currently":"dia","cid":"","city":"São Paulo, SP","img_id":"28n","humidity":0,"cloudiness":0,"rain":0,"wind_speedy":"0 km/h","wind_direction":160,"wind_cardinal":"SE","sunrise":"05:14 am","sunset":"06:29 pm","moon_phase":"waxing_crescent","condition_slug":"cloudly_night","city_name":"São Paulo","timezone":"-03:00","forecast":[{"date":"15/11","weekday":"Qua","max":38,"min":22,"cloudiness":0.0,"rain":0.39,"rain_probability":0,"wind_speedy":"4.75 km/h","description":"Chuvas esparsas","condition":"rain"},{"date":"16/11","weekday":"Qui","max":39,"min":22,"cloudiness":99.0,"rain":0.0,"rain_probability":0,"wind_speedy":"7.01 km/h","description":"Tempo nublado","condition":"cloudly_day"},{"date":"17/11","weekday":"Sex","max":40,"min":22,"cloudiness":78.0,"rain":0.0,"rain_probability":17,"wind_speedy":"7.15 km/h","description":"Tempo nublado","condition":"cloudly_day"},{"date":"18/11","weekday":"Sáb","max":32,"min":22,"cloudiness":98.0,"rain":0.0,"rain_probability":24,"wind_speedy":"6.27 km/h","description":"Tempo nublado","condition":"cloudly_day"},{"date":"19/11","weekday":"Dom","max":23,"min":19,"cloudiness":100.0,"rain":7.47,"rain_probability":95,"wind_speedy":"3.53 km/h","description":"Chuva","condition":"rain"},{"date":"20/11","weekday":"Seg","max":25,"min":19,"cloudiness":100.0,"rain":0.62,"rain_probability":70,"wind_speedy":"4.59 km/h","description":"Chuvas esparsas","condition":"rain"},{"date":"21/11","weekday":"Ter","max":29,"min":19,"cloudiness":65.0,"rain":0.63,"rain_probability":42,"wind_speedy":"4.72 km/h","description":"Chuvas esparsas","condition":"rain"},{"date":"22/11","weekday":"Qua","max":33,"min":20,"cloudiness":16.0,"rain":0.0,"rain_probability":1,"wind_speedy":"3.72 km/h","description":"Parcialmente nublado","condition":"cloudly_day"},{"date":"23/11","weekday":"Qui","max":34,"min":22,"cloudiness":98.0,"rain":0.0,"rain_probability":0,"wind_speedy":"4.58 km/h","description":"Tempo nublado","condition":"cloudly_day"},{"date":"24/11","weekday":"Sex","max":34,"min":24,"cloudiness":48.0,"rain":0.0,"rain_probability":23,"wind_speedy":"3.23 km/h","description":"Parcialmente nublado","condition":"cloud"}],"cref":"122a6b"},"execution_time":0.0,"from_cache":true}'
+
+
+@app.route('/')
+def homepage():
+  return ""
+
+
+@app.route('/clima/<local>')
+def clima(local):
+  url = url_base + "?key=7cd68685" + "&city_name=" + local
+  resp = requests.get(url)
+  if resp.content[1:5] == b'"by"':
+    return resp.content
+  else:
+    return string
+
+
+app.run(host='0.0.0.0')
